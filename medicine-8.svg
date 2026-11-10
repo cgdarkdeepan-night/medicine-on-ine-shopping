@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 200" width="240" height="200">
+  <defs>
+    <linearGradient id="bg-Thermometer" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="rgb(231,236,238)"/>
+      <stop offset="100%" stop-color="rgb(215,223,226)"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="240" height="200" rx="12" fill="url(#bg-Thermometer)"/>
+  <!-- Decorative circles -->
+  <circle cx="30" cy="170" r="40" fill="#607D8B" opacity="0.06"/>
+  <circle cx="210" cy="30" r="35" fill="#607D8B" opacity="0.06"/>
+  
+        <!-- Device body -->
+        <rect x="80" y="60" width="80" height="95" rx="12" fill="white" stroke="#607D8B" stroke-width="2.5"/>
+        <!-- Screen -->
+        <rect x="92" y="72" width="56" height="36" rx="6" fill="rgb(207,216,220)" stroke="rgb(160,177,185)" stroke-width="1"/>
+        <!-- Screen content -->
+        <text x="120" y="94" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#607D8B">120/80</text>
+        <!-- Button -->
+        <circle cx="120" cy="128" r="11" fill="#607D8B" stroke="rgb(82,106,118)" stroke-width="1.5"/>
+        <circle cx="120" cy="128" r="5" fill="white" opacity="0.5"/>
+        <!-- Indicator -->
+        <circle cx="140" y="68" r="3" fill="#607D8B" opacity="0.6"/>
+      
+  <!-- Product name -->
+  <text x="120" y="185" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="11" font-weight="600" fill="rgb(82,106,118)">Thermometer</text>
+</svg>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MediCare Online – Verified Pharmacy</title>
+  <meta name="description" content="Order medicines online. Prescription medicines are sold only after doctor verification.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="#top" class="logo" aria-label="MediCare Online home">
+      <span class="logo-mark">✚</span> MediCare<span class="logo-light">Online</span>
+    </a>
+    <div class="search">
+      <input id="searchInput" type="search" placeholder="Search medicines, e.g. Paracetamol" aria-label="Search medicines">
+    </div>
+    <nav class="nav">
+      <a href="#shop">Shop</a>
+      <a href="#prescription">Prescription</a>
+      <a href="#how">How it works</a>
+      <a href="#orders">My Orders</a>
+    </nav>
+    <button id="rxStatusBtn" class="pill pill-none" title="Prescription status">℞ No prescription</button>
+    <button id="cartBtn" class="cart-btn" aria-label="Open cart">🛒 <span id="cartCount">0</span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <p class="eyebrow">Licensed pharmacy · Doctor-verified</p>
+        <h1>Your medicines, delivered safely.</h1>
+        <p class="hero-sub">Order everyday health products instantly. For prescription medicines, upload your doctor's prescription — our pharmacist verifies it before anything is sold.</p>
+        <div class="hero-actions">
+          <a href="#shop" class="btn btn-primary">Browse medicines</a>
+          <a href="#prescription" class="btn btn-ghost">Upload prescription</a>
+        </div>
+      </div>
+      <div class="hero-card" aria-hidden="true">
+        <div class="hero-pill">💊</div>
+        <ul>
+          <li>✔ Registered doctor check</li>
+          <li>✔ Pharmacist review</li>
+          <li>✔ Prescription-only items locked</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="trust container">
+    <div>🩺<strong>Doctor verified</strong><span>Rx medicines need approval</span></div>
+    <div>🔒<strong>Private & secure</strong><span>Your data stays on your device</span></div>
+    <div>🚚<strong>Fast delivery</strong><span>Free above ₹499</span></div>
+    <div>💬<strong>Pharmacist support</strong><span>Mon–Sat, 9am–9pm</span></div>
+  </section>
+
+  <section id="shop" class="container section">
+    <div class="section-head">
+      <h2>Shop medicines</h2>
+      <p>Items marked <span class="badge badge-rx">℞ Rx</span> need a verified prescription before checkout.</p>
+    </div>
+    <div id="chips" class="chips" role="tablist" aria-label="Categories"></div>
+    <div id="grid" class="grid" aria-live="polite"></div>
+  </section>
+
+  <section id="prescription" class="section section-alt">
+    <div class="container rx-layout">
+      <div>
+        <h2>Doctor prescription verification</h2>
+        <p class="muted">Required only for ℞ medicines. Fill in your doctor's details and upload a clear photo or PDF of the prescription.</p>
+        <div id="rxStatusCard" class="status-card"></div>
+      </div>
+
+      <form id="rxForm" class="form-card" novalidate>
+        <div class="field-row">
+          <label>Patient name
+            <input name="patient" required placeholder="Full name">
+          </label>
+          <label>Prescription date
+            <input name="date" type="date" required>
+          </label>
+        </div>
+        <div class="field-row">
+          <label>Doctor's name
+            <input name="doctor" required placeholder="Dr. Anita Rao">
+          </label>
+          <label>Medical registration no.
+            <input name="regno" required placeholder="e.g. TN/12345/2015">
+          </label>
+        </div>
+        <label>Clinic / hospital
+          <input name="clinic" required placeholder="Clinic or hospital name">
+        </label>
+
+        <fieldset>
+          <legend>Medicines on this prescription</legend>
+          <div id="rxMedList" class="checks"></div>
+        </fieldset>
+
+        <label>Upload prescription (JPG, PNG or PDF, max 5 MB)
+          <input name="file" type="file" accept="image/*,.pdf" required>
+        </label>
+        <p id="rxError" class="error" role="alert"></p>
+        <button class="btn btn-primary" type="submit">Submit for verification</button>
+        <p class="tiny">Prescriptions are valid for 30 days from the date written by the doctor.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="how" class="container section">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><span>1</span><strong>Add to cart</strong>Choose OTC items or ℞ medicines.</li>
+      <li><span>2</span><strong>Upload prescription</strong>Enter your doctor's registration number and upload the paper.</li>
+      <li><span>3</span><strong>Pharmacist verifies</strong>Details, date and medicines are checked.</li>
+      <li><span>4</span><strong>Checkout</strong>Verified medicines unlock and ship to you.</li>
+    </ol>
+  </section>
+
+  <section id="orders" class="section section-alt">
+    <div class="container">
+      <h2>📦 My Orders</h2>
+      <div id="orderHistory" class="order-history">
+        <div class="cart-empty"><p>No orders yet. Start shopping!</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p><strong>MediCare Online</strong> – demo project. This site is a front-end prototype; it does not sell real medicines.</p>
+    <p class="tiny">Always consult a qualified doctor before taking any medicine. <button id="pharmaBtn" class="link-btn">Pharmacist panel (demo)</button></p>
+  </div>
+</footer>
+
+<!-- Cart drawer -->
+<div id="overlay" class="overlay" hidden></div>
+<aside id="drawer" class="drawer" aria-label="Shopping cart" aria-hidden="true">
+  <div class="drawer-head">
+    <h3>Your cart</h3>
+    <button id="closeCart" class="icon-btn" aria-label="Close cart">✕</button>
+  </div>
+  <div id="cartItems" class="cart-items"></div>
+  <div class="drawer-foot">
+    <div id="cartWarn" class="warn" hidden></div>
+    <div class="total-row"><span>Subtotal</span><strong id="subtotal">₹0</strong></div>
+    <div class="total-row small"><span>Delivery</span><span id="delivery">₹0</span></div>
+    <div class="total-row big"><span>Total</span><strong id="total">₹0</strong></div>
+    <button id="checkoutBtn" class="btn btn-primary btn-block">Proceed to checkout</button>
+  </div>
+</aside>
+
+<!-- Enhanced Multi-Step Checkout -->
+<dialog id="checkoutDlg" class="dlg dlg-checkout">
+  <!-- Progress Steps -->
+  <div class="checkout-progress">
+    <div class="ck-step active" data-ckstep="1"><span class="ck-num">1</span><span class="ck-label">Summary</span></div>
+    <div class="ck-step" data-ckstep="2"><span class="ck-num">2</span><span class="ck-label">Address</span></div>
+    <div class="ck-step" data-ckstep="3"><span class="ck-num">3</span><span class="ck-label">Payment</span></div>
+    <div class="ck-step" data-ckstep="4"><span class="ck-num">4</span><span class="ck-label">Confirm</span></div>
+  </div>
+
+  <!-- Step 1: Order Summary -->
+  <div id="ckPanel1" class="ck-panel">
+    <h3>🛒 Order Summary</h3>
+    <div id="ckOrderItems" class="ck-items"></div>
+    <div class="ck-totals" id="ckTotals1"></div>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost" id="cancelCheckout">Cancel</button>
+      <button type="button" class="btn btn-primary" data-ck-next="2">Continue to Delivery →</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Delivery Address -->
+  <div id="ckPanel2" class="ck-panel" hidden>
+    <h3>📍 Delivery Address</h3>
+    <form id="addressForm" class="ck-form" novalidate>
+      <div class="field-row">
+        <label>Full Name <input id="ckName" name="fullname" required placeholder="John Doe"></label>
+        <label>Phone Number <input id="ckPhone" name="phone" type="tel" required inputmode="tel" pattern="[0-9]{10}" placeholder="10-digit mobile" maxlength="10"></label>
+      </div>
+      <label>Email Address <input id="ckEmail" name="email" type="email" required placeholder="you@example.com"></label>
+      <label>Address Line 1 <input id="ckAddr1" name="addr1" required placeholder="House/Flat No., Building Name"></label>
+      <label>Address Line 2 <input id="ckAddr2" name="addr2" placeholder="Street, Locality (optional)"></label>
+      <div class="field-row">
+        <label>City <input id="ckCity" name="city" required placeholder="City"></label>
+        <label>State
+          <select id="ckState" name="state" required>
+            <option value="">Select State</option>
+            <option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option>
+            <option>Bihar</option><option>Chhattisgarh</option><option>Goa</option>
+            <option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option>
+            <option>Jharkhand</option><option>Karnataka</option><option>Kerala</option>
+            <option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option>
+            <option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option>
+            <option>Odisha</option><option>Punjab</option><option>Rajasthan</option>
+            <option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option>
+            <option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option>
+            <option>West Bengal</option><option>Delhi</option>
+          </select>
+        </label>
+      </div>
+      <div class="field-row">
+        <label>PIN Code <input id="ckPin" name="pincode" required inputmode="numeric" pattern="[0-9]{6}" placeholder="6-digit PIN" maxlength="6"></label>
+        <label>Delivery Instructions <input id="ckInstr" name="instructions" placeholder="e.g. Ring doorbell (optional)"></label>
+      </div>
+    </form>
+    <p id="addrError" class="error" role="alert"></p>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost" data-ck-prev="1">← Back</button>
+      <button type="button" class="btn btn-primary" data-ck-next="3">Continue to Payment →</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Payment Method -->
+  <div id="ckPanel3" class="ck-panel" hidden>
+    <h3>💳 Payment Method</h3>
+    <div class="pay-options">
+      <label class="pay-option selected">
+        <input type="radio" name="payMethod" value="cod" checked>
+        <div class="pay-card">
+          <span class="pay-icon">💵</span>
+          <div><strong>Cash on Delivery</strong><span class="tiny">Pay when your order arrives</span></div>
+        </div>
+      </label>
+      <label class="pay-option">
+        <input type="radio" name="payMethod" value="upi">
+        <div class="pay-card">
+          <span class="pay-icon">📱</span>
+          <div><strong>UPI Payment</strong><span class="tiny">Google Pay, PhonePe, Paytm</span></div>
+        </div>
+      </label>
+      <label class="pay-option">
+        <input type="radio" name="payMethod" value="card">
+        <div class="pay-card">
+          <span class="pay-icon">💳</span>
+          <div><strong>Credit / Debit Card</strong><span class="tiny">Visa, Mastercard, RuPay</span></div>
+        </div>
+      </label>
+      <label class="pay-option">
+        <input type="radio" name="payMethod" value="netbanking">
+        <div class="pay-card">
+          <span class="pay-icon">🏦</span>
+          <div><strong>Net Banking</strong><span class="tiny">All major banks supported</span></div>
+        </div>
+      </label>
+    </div>
+    <!-- UPI panel (shown when UPI selected) -->
+    <div id="upiPanel" class="pay-detail-panel" hidden>
+      <label>UPI ID <input id="ckUpi" placeholder="yourname@upi"></label>
+    </div>
+    <!-- Card panel (shown when card selected) -->
+    <div id="cardPanel" class="pay-detail-panel" hidden>
+      <label>Card Number <input id="ckCardNum" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric"></label>
+      <div class="field-row">
+        <label>Expiry <input id="ckCardExp" placeholder="MM/YY" maxlength="5"></label>
+        <label>CVV <input id="ckCardCvv" type="password" placeholder="•••" maxlength="3" inputmode="numeric"></label>
+      </div>
+      <label>Name on Card <input id="ckCardName" placeholder="As printed on card"></label>
+    </div>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost" data-ck-prev="2">← Back</button>
+      <button type="button" class="btn btn-primary" data-ck-next="4">Review Order →</button>
+    </div>
+  </div>
+
+  <!-- Step 4: Order Review & Confirm -->
+  <div id="ckPanel4" class="ck-panel" hidden>
+    <h3>📋 Review Your Order</h3>
+    <div id="ckReviewContent" class="ck-review"></div>
+    <div class="ck-totals" id="ckTotals4"></div>
+    <label class="ck-agree"><input type="checkbox" id="ckAgree"> I confirm the details above are correct and agree to the <a href="#">Terms & Conditions</a>.</label>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost" data-ck-prev="3">← Back</button>
+      <button type="button" class="btn btn-primary btn-place-order" id="placeOrderBtn" disabled>🛒 Place Order</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Enhanced Order Success -->
+<dialog id="successDlg" class="dlg dlg-checkout">
+  <div class="order-success">
+    <div class="tick">✔</div>
+    <h3>Order Placed Successfully!</h3>
+    <p id="successMsg" class="muted"></p>
+    <div id="orderSummaryFinal" class="order-receipt"></div>
+    <div class="dlg-actions" style="justify-content:center">
+      <button class="btn btn-ghost" id="printOrder">🖨 Print Receipt</button>
+      <button class="btn btn-primary" id="closeSuccess">Continue Shopping</button>
+    </div>
+  </div>
+</dialog>
+
+<!-- Pharmacist panel -->
+<dialog id="pharmaDlg" class="dlg dlg-wide">
+  <h3>Pharmacist review panel <span class="tiny">(demo)</span></h3>
+  <div id="pharmaLogin">
+    <p class="muted">Enter the demo password to review prescriptions. Password: <code>pharma123</code></p>
+    <input id="pharmaPass" type="password" placeholder="Password">
+    <p id="pharmaErr" class="error"></p>
+    <div class="dlg-actions">
+      <button class="btn btn-ghost" id="pharmaClose1">Close</button>
+      <button class="btn btn-primary" id="pharmaEnter">Sign in</button>
+    </div>
+  </div>
+  <div id="pharmaBody" hidden>
+    <div id="pharmaContent"></div>
+    <div class="dlg-actions">
+      <button class="btn btn-ghost" id="pharmaClose2">Close</button>
+    </div>
+  </div>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
